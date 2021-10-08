@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel='stylesheet' href='styles.css'><link/>
+<style>
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #134678;}
+
+#customers tr:hover {background-color: blue;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+</style>
+</head>
+<body>
+<!-- 
+<table id="customers">
+  <tr>
+    <th>E-Mail</th>
+    <th>Password</th>
+    <th><a href="index.html">
+        Insert Data
+    </a></th>
+   
+  </tr>
+  <tr>
+   
+  
+  </tr>
+ 
+
+
+</table> -->
+<div class="data_container">
+    <div class="data_headers">
+        <div class="data_header">
+          <p style="color: white;">psw</p>
+        </div>
+        <div class="data_header">
+            <p style="color: white;">psw</p>
+
+    </div>
+  
+    <!-- <div class="data_header">
+        <a href="index.html">
+            <p style="color: white;">Insert Data</p>
+        </a>
+    </div> -->
+</div>
+<div id="data">
+
+</div>
+</div>
+
+</body>
+</html>
+<script>
+    const getDataFromApi = () => {
+  fetch("http://localhost:3030/")
+    .then((response) => response.json()) // Arrow functions
+    .then((json) => {
+   json.forEach(entry => {
+//    console.log(entry.email)    
+var data=document.getElementById("data")
+data.innerHTML += `
+            <div class="data_mail">
+                <p style='color:white'>${entry.email}</p>
+            </div>
+            <div class="data_psw">
+                <p style='color:white'>${entry.password}</p>
+            </div>
+          
+           
+          
+           
+        `});
+    });
+};
+getDataFromApi()
+</script>
