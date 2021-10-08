@@ -16,7 +16,12 @@ app.get("/", function (req, res) {
   console.log(excelData.length);
 });
 // add user
-app.post("/addUser", function (req, res) {});
+app.post("/addUser", function (req, res) {
+  let data = req.body;
+  data += excelData;
+
+  res.send("user added");
+});
 
 // GET SPECIFIC USER (QUERY STRING)
 app.get("/user", function (req, res) {

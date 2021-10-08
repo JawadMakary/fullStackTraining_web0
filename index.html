@@ -21,10 +21,10 @@
                   </div>
                   <div class="input_container">
                     <label for="">Password:</label>
-                    <input type="password" placeholder="enter the password" id='psw' name='psw' >
+                    <input type="password" placeholder="enter the password" id='password' name='password' >
                   </div>
                   <div class="input_submit">
-                      <input  type="submit" value="Add user" >
+                      <input  type="submit" value="Add user" onclick="addUserData()" >
                   </div>
                   <div class="input_get">
                       <a href="table.html">
@@ -38,10 +38,30 @@
     </div>
 </body>
 </html>
-<script src='index.js' ></script>
+<!-- <script src='index.js' ></script> -->
 <script>
-    
-var email=document.getElementById("email").innerText
-var psw=document.getElementById("psw").innerText
+   const addUserData=()=>{
+      var headers=new Headers()
+      headers.append("Content-Type","application/json")
+  var email=document.getElementById("email").value
+  var password=document.getElementById("password").value
+  var raw = JSON.stringify({
+    "email":email,"password":password
+  });
 
+  var requestOptions = {
+    method: 'POST',
+    body: raw,
+    headers:headers,
+    redirect: 'follow'
+  };
+
+  fetch("http://localhost:3030/addUser", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+    console.log(email,password)
+    }
+  
+   
 </script>
