@@ -14,23 +14,28 @@ app.get("/", function (req, res) {
   res.send(excelData);
   // console.log(excelData.length);
 });
-// add user
-// app.post("/addUser", function (req, res) {
-//   let data = { email: "123", password: 132 };
-//   data = { ...excelData } + data;
-//   const ws = xlsx.utils.json_to_sheet(excelData);
-//   const wb = xlsx.utils.book_new();
-//   xlsx.utils.book_append_sheet(wb, ws, "Responses");
-//   xlsx.writeFile(wb, "sampleData.export.xlsx");
-//   res.send(data);
-// });
-
+var emails = [];
+for (let i = 0; i < excelData.length; i++) {
+  emails.push(excelData[i].email);
+} // add user
+console.log(emails);
 app.post("/addNewUser", function (req, res) {
   console.log(req.body);
   excelData.push(req.body);
   // excelpush = xlsx.utils.json_to_sheet(excelData);
   res.send(excelData);
-  wBook.Sheets(wSheet).push(req.body);
+});
+app.post("/checkUser", function (req, res) {
+  // var cred = { email: "tet", password: 123 };
+  var email = req.body.email;
+  var password = req.body.password;
+  for (let i = 0; i < emails.length; i++) {
+    if (email == emails[i]) {
+      res.send("true");
+    } else {
+      res.send("false");
+    }
+  }
 });
 // GET SPECIFIC USER (QUERY STRING)
 app.get("/user", function (req, res) {

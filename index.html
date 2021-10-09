@@ -30,6 +30,9 @@
                       <a href="table.html">
                     <input type="button" value="Get users">
                 </a>
+               
+                  <button onclick="checkIfExists()">
+                    Check if users exists
                   </div>
                 </form>
             </div>
@@ -39,30 +42,7 @@
 </body>
 </html>
 <script>
-  //  const addUserData=()=>{
-  //   var headers=new Headers()
-  //   headers.append("Content-Type","application/json")
-  //   var email=document.getElementById("email").value
-  //   var password=document.getElementById("password").value
-  //   var data ={email,password}
-  //   console.log(data.email)
-  //   var raw = JSON.stringify({
-  //   "email":email,"password":password
-  //   });
-
-  // var requestOptions = {
-  //   method: 'POST',
-  //   body: raw,
-  //   headers:headers,
-  //   redirect: 'follow'
-  // };
-
-  // fetch("http://localhost:3030/addUser", requestOptions)
-  //   .then(response => response.text())
-  //   .then(result => console.warn(result))
-  //   .catch(error => console.error('error', error));
-  //   console.log(email,password)
-  //   }
+ 
   const addUserData=()=>{
         var email=document.getElementById("email").value
      var password=document.getElementById("password").value
@@ -86,5 +66,27 @@ fetch("http://localhost:3030/addNewUser", requestOptions)
   .then(result => console.log(result))
   .catch(error => console.log('error', error));
   }
-  
+  const checkIfExists=()=>{
+    var email=document.getElementById("email").value
+     var password=document.getElementById("password").value
+    var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  "email":email,
+  "password":password
+});
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("http://localhost:3030/checkUser", requestOptions)
+  .then(response => response.text())
+  .then(result => alert(result))
+  .catch(error => console.log('error', error));
+  }
 </script>
