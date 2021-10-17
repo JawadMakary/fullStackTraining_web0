@@ -16,7 +16,7 @@ const checkIfExists = () => {
     redirect: "follow",
   };
 
-  fetch("http://localhost:3030/checkUser", requestOptions)
+  fetch("https://jawad-makary-api.herokuapp.com/checkUser", requestOptions)
     .then((response) => response.text())
     .then((result) => alert(result))
     .catch((error) => console.log("error", error));

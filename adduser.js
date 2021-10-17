@@ -16,7 +16,7 @@ const addUserData = () => {
     redirect: "follow",
   };
 
-  fetch("http://localhost:3030/addNewUser", requestOptions)
+  fetch("https://jawad-makary-api.herokuapp.com/addNewUser", requestOptions)
     .then((response) => response.text())
     .then((result) => console.log(result))
     .catch((error) => console.log("error", error));
