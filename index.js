@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 var cors = require("cors");
 const bodyParser = require("body-parser");
+const exceljs = require("exceljs");
 const { write } = require("fs");
 app.use(bodyParser.json());
 app.use(cors()); // middle ware : CORS : Cross Origin Resource Sharing
@@ -22,8 +23,19 @@ console.log(emails);
 app.post("/addNewUser", function (req, res) {
   console.log(req.body);
   excelData.push(req.body);
-  // excelpush = xlsx.utils.json_to_sheet(excelData);
   res.send(excelData);
+  var nameFileExcel = "users.xlsx";
+  var workbook1 = new exceljs.Workbook();
+  workbook1.xlsx.readFile(nameFileExcel).then(function () {
+    var worksheet1 = workbook1.getWorksheet(1);
+    var lastRow = worksheet1.lastRow;
+    var getRowInsert = worksheet1.getRow(++lastRow.number);
+    getRowInsert.getCell("A").value = req.body.email;
+    getRowInsert.getCell("B").value = req.body.password;
+    getRowInsert.commit();
+    workbook1.xlsx.writeFile(nameFileExcel);
+  });
+  res.send("OK");
 });
 app.post("/checkUser", function (req, res) {
   // var cred = { email: "tet", password: 123 };
